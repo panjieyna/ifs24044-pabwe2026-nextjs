@@ -20,29 +20,18 @@ export const ActionType = {
 export function setUsers(users: any[]) {
   return { type: ActionType.SET_USERS, payload: { users } };
 }
-
 export function setProfile(profile: any) {
   return { type: ActionType.SET_PROFILE, payload: { profile } };
 }
-
 export function setIsProfile(isProfile: boolean) {
   return { type: ActionType.SET_IS_PROFILE, payload: { isProfile } };
 }
-
 export function setIsChangeProfile(isChangeProfile: boolean) {
-  return {
-    type: ActionType.SET_IS_CHANGE_PROFILE,
-    payload: { isChangeProfile },
-  };
+  return { type: ActionType.SET_IS_CHANGE_PROFILE, payload: { isChangeProfile } };
 }
-
 export function setIsChangeProfilePhoto(isChangeProfilePhoto: boolean) {
-  return {
-    type: ActionType.SET_IS_CHANGE_PROFILE_PHOTO,
-    payload: { isChangeProfilePhoto },
-  };
+  return { type: ActionType.SET_IS_CHANGE_PROFILE_PHOTO, payload: { isChangeProfilePhoto } };
 }
-
 export function setIsChangeProfilePassword(isChangeProfilePassword: boolean) {
   return {
     type: ActionType.SET_IS_CHANGE_PROFILE_PASSWORD,

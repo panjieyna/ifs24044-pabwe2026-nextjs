@@ -27,7 +27,7 @@ export default function LoginPage() {
       await dispatch(asyncSetIsAuthLogin({ email, password }));
       router.replace('/posts');
     } catch {
-      // dialog sudah handle
+      /* handled */
     }
   }
 
@@ -37,26 +37,16 @@ export default function LoginPage() {
         <h2 className="text-2xl font-bold text-slate-800">Masuk</h2>
         <p className="text-slate-600 mt-1">Selamat datang kembali</p>
       </div>
-
       <form onSubmit={handleSubmit} className="space-y-5">
         {error && (
-          <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">
-            {error}
-          </div>
+          <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{error}</div>
         )}
-
         <div>
-          <label
-            htmlFor="login-email"
-            className="block text-sm font-medium text-slate-700 mb-1.5"
-          >
+          <label htmlFor="login-email" className="block text-sm font-medium text-slate-700 mb-1.5">
             Email
           </label>
           <div className="relative">
-            <FiMail
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600"
-              aria-hidden
-            />
+            <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" aria-hidden />
             <input
               id="login-email"
               type="email"
@@ -68,19 +58,12 @@ export default function LoginPage() {
             />
           </div>
         </div>
-
         <div>
-          <label
-            htmlFor="login-password"
-            className="block text-sm font-medium text-slate-700 mb-1.5"
-          >
+          <label htmlFor="login-password" className="block text-sm font-medium text-slate-700 mb-1.5">
             Kata Sandi
           </label>
           <div className="relative">
-            <FiLock
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600"
-              aria-hidden
-            />
+            <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" aria-hidden />
             <input
               id="login-password"
               type="password"
@@ -92,7 +75,6 @@ export default function LoginPage() {
             />
           </div>
         </div>
-
         <button
           type="submit"
           disabled={isAuthLogin}
@@ -102,13 +84,9 @@ export default function LoginPage() {
           {isAuthLogin ? 'Memproses...' : 'Masuk'}
         </button>
       </form>
-
       <p className="text-center text-sm text-slate-600 mt-6">
         Belum punya akun?{' '}
-        <Link
-          href="/auth/register"
-          className="text-sky-800 font-semibold hover:underline"
-        >
+        <Link href="/auth/register" className="text-sky-800 font-semibold hover:underline">
           Daftar
         </Link>
       </p>

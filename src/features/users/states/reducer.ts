@@ -20,10 +20,7 @@ export default function usersReducer(state = initialState, action: any = {}) {
     case ActionType.SET_IS_CHANGE_PROFILE:
       return { ...state, isChangeProfile: action.payload.isChangeProfile };
     case ActionType.SET_IS_CHANGE_PROFILE_PHOTO:
-      return {
-        ...state,
-        isChangeProfilePhoto: action.payload.isChangeProfilePhoto,
-      };
+      return { ...state, isChangeProfilePhoto: action.payload.isChangeProfilePhoto };
     case ActionType.SET_IS_CHANGE_PROFILE_PASSWORD:
       return {
         ...state,

@@ -1,8 +1,4 @@
-import {
-  login as loginApi,
-  register as registerApi,
-  logout as logoutApi,
-} from '../api/authApi';
+import { login as loginApi, register as registerApi, logout as logoutApi } from '../api/authApi';
 import { putAccessToken, removeAccessToken } from '@/helpers/apiHelper';
 import { showErrorDialog, showSuccessDialog } from '@/helpers/toolsHelper';
 import type { AppDispatch } from '@/store';
@@ -14,30 +10,16 @@ export const ActionType = {
 } as const;
 
 export function setIsAuthLogin(isAuthLogin: boolean) {
-  return {
-    type: ActionType.SET_IS_AUTH_LOGIN,
-    payload: { isAuthLogin },
-  };
+  return { type: ActionType.SET_IS_AUTH_LOGIN, payload: { isAuthLogin } };
 }
-
 export function setIsAuthRegister(isAuthRegister: boolean) {
-  return {
-    type: ActionType.SET_IS_AUTH_REGISTER,
-    payload: { isAuthRegister },
-  };
+  return { type: ActionType.SET_IS_AUTH_REGISTER, payload: { isAuthRegister } };
 }
-
 export function setIsAuthLogout(isAuthLogout: boolean) {
-  return {
-    type: ActionType.SET_IS_AUTH_LOGOUT,
-    payload: { isAuthLogout },
-  };
+  return { type: ActionType.SET_IS_AUTH_LOGOUT, payload: { isAuthLogout } };
 }
 
-export function asyncSetIsAuthLogin(payload: {
-  email: string;
-  password: string;
-}) {
+export function asyncSetIsAuthLogin(payload: { email: string; password: string }) {
   return async (dispatch: AppDispatch) => {
     dispatch(setIsAuthLogin(true));
     try {
@@ -63,10 +45,7 @@ export function asyncSetIsAuthRegister(payload: {
     dispatch(setIsAuthRegister(true));
     try {
       const data = await registerApi(payload);
-      await showSuccessDialog(
-        'Berhasil registrasi',
-        'Silakan login dengan akun baru'
-      );
+      await showSuccessDialog('Berhasil registrasi', 'Silakan login dengan akun baru');
       return data;
     } catch (error: any) {
       await showErrorDialog('Gagal registrasi', error.message);
@@ -83,7 +62,7 @@ export function asyncSetIsAuthLogout() {
     try {
       await logoutApi();
     } catch {
-      // abaikan
+      /* ignore */
     } finally {
       removeAccessToken();
       dispatch(setIsAuthLogout(false));

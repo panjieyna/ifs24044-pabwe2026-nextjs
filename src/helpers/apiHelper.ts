@@ -58,9 +58,7 @@ export async function apiFetch(path: string, options: ApiOptions = {}) {
 
   const fetchOptions: RequestInit = { method, headers };
   if (body !== null && body !== undefined) {
-    fetchOptions.body = isFormData
-      ? (body as FormData)
-      : JSON.stringify(body);
+    fetchOptions.body = isFormData ? (body as FormData) : JSON.stringify(body);
   }
 
   const response = await fetch(url, fetchOptions);

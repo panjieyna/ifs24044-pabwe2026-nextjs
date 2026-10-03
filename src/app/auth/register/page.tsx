@@ -28,7 +28,7 @@ export default function RegisterPage() {
       await dispatch(asyncSetIsAuthRegister({ name, email, password }));
       router.replace('/auth/login');
     } catch {
-      // handled
+      /* handled */
     }
   }
 
@@ -38,26 +38,16 @@ export default function RegisterPage() {
         <h2 className="text-2xl font-bold text-slate-800">Daftar</h2>
         <p className="text-slate-600 mt-1">Buat akun baru</p>
       </div>
-
       <form onSubmit={handleSubmit} className="space-y-5">
         {error && (
-          <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">
-            {error}
-          </div>
+          <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{error}</div>
         )}
-
         <div>
-          <label
-            htmlFor="reg-name"
-            className="block text-sm font-medium text-slate-700 mb-1.5"
-          >
+          <label htmlFor="reg-name" className="block text-sm font-medium text-slate-700 mb-1.5">
             Nama
           </label>
           <div className="relative">
-            <FiUser
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600"
-              aria-hidden
-            />
+            <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" aria-hidden />
             <input
               id="reg-name"
               type="text"
@@ -68,19 +58,12 @@ export default function RegisterPage() {
             />
           </div>
         </div>
-
         <div>
-          <label
-            htmlFor="reg-email"
-            className="block text-sm font-medium text-slate-700 mb-1.5"
-          >
+          <label htmlFor="reg-email" className="block text-sm font-medium text-slate-700 mb-1.5">
             Email
           </label>
           <div className="relative">
-            <FiMail
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600"
-              aria-hidden
-            />
+            <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" aria-hidden />
             <input
               id="reg-email"
               type="email"
@@ -91,19 +74,12 @@ export default function RegisterPage() {
             />
           </div>
         </div>
-
         <div>
-          <label
-            htmlFor="reg-password"
-            className="block text-sm font-medium text-slate-700 mb-1.5"
-          >
+          <label htmlFor="reg-password" className="block text-sm font-medium text-slate-700 mb-1.5">
             Kata Sandi
           </label>
           <div className="relative">
-            <FiLock
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600"
-              aria-hidden
-            />
+            <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" aria-hidden />
             <input
               id="reg-password"
               type="password"
@@ -114,7 +90,6 @@ export default function RegisterPage() {
             />
           </div>
         </div>
-
         <button
           type="submit"
           disabled={isAuthRegister}
@@ -124,13 +99,9 @@ export default function RegisterPage() {
           {isAuthRegister ? 'Memproses...' : 'Daftar'}
         </button>
       </form>
-
       <p className="text-center text-sm text-slate-600 mt-6">
         Sudah punya akun?{' '}
-        <Link
-          href="/auth/login"
-          className="text-sky-800 font-semibold hover:underline"
-        >
+        <Link href="/auth/login" className="text-sky-800 font-semibold hover:underline">
           Masuk
         </Link>
       </p>
