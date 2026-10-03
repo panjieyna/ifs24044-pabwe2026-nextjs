@@ -34,7 +34,7 @@ export default function LoginPage() {
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-slate-800">Masuk</h2>
+        <h1 className="text-2xl font-bold text-slate-800">Masuk</h1>
         <p className="text-slate-600 mt-1">Selamat datang kembali</p>
       </div>
       <form onSubmit={handleSubmit} className="space-y-5">

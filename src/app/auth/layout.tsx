@@ -18,7 +18,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         aria-label="Informasi aplikasi"
       >
         <div className="relative z-10 text-center max-w-md">
-          <h1 className="text-4xl font-extrabold mb-4">Delcom Posts</h1>
+          <p className="text-4xl font-extrabold mb-4">Delcom Posts</p>
           <p className="text-sky-100 text-lg leading-relaxed">
             Bagikan postingan, berikan like, dan berdiskusi lewat komentar.
           </p>

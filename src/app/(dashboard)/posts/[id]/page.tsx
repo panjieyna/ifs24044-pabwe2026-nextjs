@@ -101,6 +101,7 @@ export default function PostDetailPage() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
+      <h1 className="sr-only">Detail Postingan</h1>
       <Link href="/posts" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-sky-800">
         <FiArrowLeft aria-hidden /> Kembali
       </Link>

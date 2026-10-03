@@ -1,6 +1,10 @@
-import Swal from 'sweetalert2';
+async function getSwal() {
+  const mod = await import('sweetalert2');
+  return mod.default;
+}
 
-export function showSuccessDialog(title: string, text = '') {
+export async function showSuccessDialog(title: string, text = '') {
+  const Swal = await getSwal();
   return Swal.fire({
     icon: 'success',
     title,
@@ -9,7 +13,8 @@ export function showSuccessDialog(title: string, text = '') {
   });
 }
 
-export function showErrorDialog(title: string, text = '') {
+export async function showErrorDialog(title: string, text = '') {
+  const Swal = await getSwal();
   return Swal.fire({
     icon: 'error',
     title,
@@ -18,7 +23,8 @@ export function showErrorDialog(title: string, text = '') {
   });
 }
 
-export function showWarningDialog(title: string, text = '') {
+export async function showWarningDialog(title: string, text = '') {
+  const Swal = await getSwal();
   return Swal.fire({
     icon: 'warning',
     title,
@@ -27,12 +33,13 @@ export function showWarningDialog(title: string, text = '') {
   });
 }
 
-export function showConfirmDialog(
+export async function showConfirmDialog(
   title: string,
   text = '',
   confirmText = 'Ya',
   cancelText = 'Batal'
 ) {
+  const Swal = await getSwal();
   return Swal.fire({
     icon: 'question',
     title,
