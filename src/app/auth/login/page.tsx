@@ -42,13 +42,13 @@ export default function LoginPage() {
           <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{error}</div>
         )}
         <div>
-          <label htmlFor="login-email" className="block text-sm font-medium text-slate-700 mb-1.5">
+          <label htmlFor="login-email-input" className="block text-sm font-medium text-slate-700 mb-1.5">
             Email
           </label>
           <div className="relative">
             <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" aria-hidden />
             <input
-              id="login-email"
+              id="login-email-input"
               type="email"
               value={email}
               onChange={onEmailChange}
@@ -59,13 +59,13 @@ export default function LoginPage() {
           </div>
         </div>
         <div>
-          <label htmlFor="login-password" className="block text-sm font-medium text-slate-700 mb-1.5">
+          <label htmlFor="login-password-input" className="block text-sm font-medium text-slate-700 mb-1.5">
             Kata Sandi
           </label>
           <div className="relative">
             <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" aria-hidden />
             <input
-              id="login-password"
+              id="login-password-input"
               type="password"
               value={password}
               onChange={onPasswordChange}
@@ -76,6 +76,7 @@ export default function LoginPage() {
           </div>
         </div>
         <button
+          id="login-submit-button"
           type="submit"
           disabled={isAuthLogin}
           className="w-full flex items-center justify-center gap-2 bg-sky-800 hover:bg-sky-900 disabled:bg-sky-600 text-white font-semibold py-2.5 rounded-xl"
