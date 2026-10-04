@@ -35,10 +35,24 @@ export default function PostDetailPage() {
     if (post?.description) setEditDesc(post.description);
   }, [post, setEditDesc]);
 
-  const isOwner = profile && post && (profile.id === post.user_id || profile.id === post.author?.id);
+  const isOwner =
+    profile &&
+    post &&
+    (profile.id === post.user_id || profile.id === post.author?.id);
+
+  // likes dari API = array user id, contoh: [2, 3]
+  const myUserId = profile?.id;
+  const likedByMe =
+    Array.isArray(post?.likes) && myUserId != null
+      ? post.likes.map(String).includes(String(myUserId))
+      : false;
 
   async function handleDelete() {
-    const result = await showConfirmDialog('Hapus postingan?', 'Tidak dapat dibatalkan.', 'Hapus');
+    const result = await showConfirmDialog(
+      'Hapus postingan?',
+      'Tidak dapat dibatalkan.',
+      'Hapus'
+    );
     if (result.isConfirmed) {
       try {
         await dispatch(asyncDeletePost(id));
@@ -51,7 +65,8 @@ export default function PostDetailPage() {
 
   async function handleLike() {
     try {
-      await dispatch(asyncLikePost(id));
+      const nextLike: 0 | 1 = likedByMe ? 0 : 1;
+      await dispatch(asyncLikePost(id, nextLike));
       await dispatch(asyncGetPostById(id));
     } catch {
       /* handled */
@@ -102,7 +117,10 @@ export default function PostDetailPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <h1 className="sr-only">Detail Postingan</h1>
-      <Link href="/posts" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-sky-800">
+      <Link
+        href="/posts"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-sky-800"
+      >
         <FiArrowLeft aria-hidden /> Kembali
       </Link>
 
@@ -110,11 +128,17 @@ export default function PostDetailPage() {
         {post.cover && (
           <div className="aspect-video bg-slate-100">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={coverUrl(post.cover) || ''} alt="" className="w-full h-full object-cover" />
+            <img
+              src={coverUrl(post.cover) || ''}
+              alt=""
+              className="w-full h-full object-cover"
+            />
           </div>
         )}
         <div className="p-6 space-y-4">
-          <p className="text-slate-800 whitespace-pre-wrap leading-relaxed">{post.description}</p>
+          <p className="text-slate-800 whitespace-pre-wrap leading-relaxed">
+            {post.description}
+          </p>
           <div className="flex flex-wrap gap-4 text-sm text-slate-600 border-t border-slate-100 pt-4">
             <div>
               <span className="block text-xs text-slate-600">Penulis</span>
@@ -129,9 +153,14 @@ export default function PostDetailPage() {
             <button
               type="button"
               onClick={handleLike}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium ${
+                likedByMe
+                  ? 'border-rose-300 bg-rose-50 text-rose-700'
+                  : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+              }`}
             >
-              <FiHeart aria-hidden /> Like ({post.likes_count ?? post.likes?.length ?? 0})
+              <FiHeart aria-hidden />
+              {likedByMe ? 'Unlike' : 'Like'} ({post.likes?.length ?? 0})
             </button>
             {isOwner && (
               <>
@@ -144,7 +173,13 @@ export default function PostDetailPage() {
                 </button>
                 <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 hover:bg-slate-50 cursor-pointer">
                   <FiImage aria-hidden /> Cover
-                  <input type="file" accept="image/*" className="hidden" onChange={handleCover} aria-label="Unggah cover" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleCover}
+                    aria-label="Unggah cover"
+                  />
                 </label>
                 <button
                   type="button"
@@ -174,7 +209,10 @@ export default function PostDetailPage() {
             placeholder="Tulis komentar..."
             className="flex-1 px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
           />
-          <button type="submit" className="px-4 py-2.5 rounded-xl bg-sky-800 text-white font-semibold">
+          <button
+            type="submit"
+            className="px-4 py-2.5 rounded-xl bg-sky-800 text-white font-semibold"
+          >
             Kirim
           </button>
         </form>
@@ -182,7 +220,9 @@ export default function PostDetailPage() {
           {(post.comments || []).map((c: any) => (
             <li key={c.id} className="py-3 flex justify-between gap-3">
               <div>
-                <p className="text-sm font-medium text-slate-800">{c.author?.name || c.user?.name || 'User'}</p>
+                <p className="text-sm font-medium text-slate-800">
+                  {c.author?.name || c.user?.name || 'User'}
+                </p>
                 <p className="text-sm text-slate-700">{c.comment || c.content}</p>
               </div>
               {isOwner && (
@@ -202,9 +242,15 @@ export default function PostDetailPage() {
 
       {showEdit && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
-          <form onSubmit={handleEdit} className="bg-white rounded-2xl shadow-xl w-full max-w-md p-5 space-y-4">
+          <form
+            onSubmit={handleEdit}
+            className="bg-white rounded-2xl shadow-xl w-full max-w-md p-5 space-y-4"
+          >
             <h2 className="font-bold text-lg">Ubah Postingan</h2>
-            <label htmlFor="edit-desc" className="block text-sm font-medium text-slate-700">
+            <label
+              htmlFor="edit-desc"
+              className="block text-sm font-medium text-slate-700"
+            >
               Deskripsi
             </label>
             <textarea
@@ -215,10 +261,17 @@ export default function PostDetailPage() {
               className="w-full px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-sky-700"
             />
             <div className="flex gap-3">
-              <button type="button" onClick={() => setShowEdit(false)} className="flex-1 py-2.5 rounded-xl border">
+              <button
+                type="button"
+                onClick={() => setShowEdit(false)}
+                className="flex-1 py-2.5 rounded-xl border"
+              >
                 Batal
               </button>
-              <button type="submit" className="flex-1 py-2.5 rounded-xl bg-sky-800 text-white font-semibold">
+              <button
+                type="submit"
+                className="flex-1 py-2.5 rounded-xl bg-sky-800 text-white font-semibold"
+              >
                 Simpan
               </button>
             </div>

@@ -30,8 +30,11 @@ export async function deletePost(id: string | number) {
   return apiFetch(`/posts/${id}`, { method: 'DELETE' });
 }
 
-export async function likePost(id: string | number) {
-  return apiFetch(`/posts/${id}/likes`, { method: 'POST' });
+export async function likePost(id: string | number, like: 0 | 1 = 1) {
+  return apiFetch(`/posts/${id}/likes`, {
+    method: 'POST',
+    body: { like },
+  });
 }
 
 export async function addComment(id: string | number, payload: { comment: string }) {

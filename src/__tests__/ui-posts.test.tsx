@@ -129,9 +129,23 @@ describe('PostDetailPage', () => {
   it('like postingan', async () => {
     renderWithStore(<PostDetailPage />);
     fireEvent.click(await screen.findByRole('button', { name: /like/i }));
-    await waitFor(() => expect(postApi.likePost).toHaveBeenCalledWith('7'));
+    await waitFor(() => expect(postApi.likePost).toHaveBeenCalledWith('7', 1));
   });
 
+    it('unlike jika sudah di-like oleh saya', async () => {
+    A(postApi.getPostById).mockResolvedValue({ data: { post: { ...post, likes: [1, 5] } } });
+    renderWithStore(<PostDetailPage />, (s) => s.dispatch(setProfile({ id: 1 })));
+    const btn = await screen.findByRole('button', { name: /unlike \(2\)/i });
+    fireEvent.click(btn);
+    await waitFor(() => expect(postApi.likePost).toHaveBeenCalledWith('7', 0));
+  });
+
+  it('tombol Like jika orang lain yang me-like', async () => {
+    A(postApi.getPostById).mockResolvedValue({ data: { post: { ...post, likes: [2, 3] } } });
+    renderWithStore(<PostDetailPage />, (s) => s.dispatch(setProfile({ id: 1 })));
+    expect(await screen.findByRole('button', { name: /^like \(2\)/i })).toBeInTheDocument();
+  });
+  
   it('like gagal ditangani', async () => {
     A(postApi.likePost).mockRejectedValue(new Error('x'));
     renderWithStore(<PostDetailPage />);

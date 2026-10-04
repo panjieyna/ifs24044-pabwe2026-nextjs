@@ -158,11 +158,11 @@ export function asyncDeletePost(id: string | number) {
   };
 }
 
-export function asyncLikePost(id: string | number) {
+export function asyncLikePost(id: string | number, like: 0 | 1 = 1) {
   return async (dispatch: AppDispatch) => {
     dispatch(setIsPostLike(true));
     try {
-      await api.likePost(id);
+      await api.likePost(id, like);
       dispatch(setIsPostLiked(true));
     } catch (error: any) {
       await showErrorDialog('Gagal like', error.message);
