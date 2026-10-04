@@ -1,7 +1,20 @@
-   import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
-   const nextConfig: NextConfig = {
-     /* config options here */
-   };
+const DELCOM_TARGET =
+  process.env.NEXT_PUBLIC_DELCOM_BASEURL || 'https://open-api.delcom.org/api/v1';
 
-   export default nextConfig;
+const nextConfig: NextConfig = {
+  experimental: {
+    inlineCss: true,
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/delcom/:path*',
+        destination: `${DELCOM_TARGET}/:path*`,
+      },
+    ];
+  },
+};
+
+export default nextConfig;

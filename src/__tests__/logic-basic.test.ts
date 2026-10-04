@@ -19,7 +19,7 @@ vi.mock('sweetalert2', () => ({
 
 describe('config', () => {
   it('memiliki nilai default', () => {
-    expect(DELCOM_BASEURL).toContain('http');
+    expect(DELCOM_BASEURL).toBe('/api/delcom');
     expect(typeof APP_PORT).toBe('number');
   });
 });
