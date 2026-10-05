@@ -81,7 +81,7 @@ export default function PostsHomePage() {
               onChange={(e) => setIsMe(e.target.checked)}
               className="rounded border-slate-300 text-sky-800 focus:ring-sky-500"
             />
-            Postingan Saya
+            <span>Postingan Saya</span>
           </label>
         </div>
       </div>
